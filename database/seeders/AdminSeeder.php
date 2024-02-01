@@ -14,7 +14,12 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::factory()->create();
+        $user = User::create([
+            'name' => 'Admin',
+            'email' => 'admin@ndachi.dev',
+            'password' => bcrypt('Password'),
+            'email_verified_at' => now(),
+        ]);
 
         $user->assignRole(Role::ADMIN);
     }
