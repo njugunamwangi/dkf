@@ -10,7 +10,7 @@ class CommunicationController extends Controller
 {
     public function index() {
         $user = auth()->user();
-        $region = Region::where('coordinator_id', '=', $user->id)->first();
+        $region = Region::where('moderator_id', '=', $user->id)->first();
 
         $members = Member::query()
             ->where('region_id', '=', $region->id)

@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CoordinatorSeeder extends Seeder
+class ModeratorSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,6 +16,6 @@ class CoordinatorSeeder extends Seeder
     {
         $user = User::factory()->create();
 
-        $user->assignRole(Role::COORDINATOR);
+        $user->assignRole(Role::MODERATOR);
     }
 }

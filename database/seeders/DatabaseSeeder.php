@@ -20,6 +20,6 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call(RoleSeeder::class);
         $this->call(AdminSeeder::class);
-        $this->call(CoordinatorSeeder::class);
+        $this->call(ModeratorSeeder::class);
     }
 }

@@ -11,5 +11,5 @@ class Role extends ModelsRole
     use HasFactory;
 
     public const ADMIN = 1;
-    public const COORDINATOR = 2;
+    public const MODERATOR = 2;
 }

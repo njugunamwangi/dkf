@@ -17,8 +17,8 @@ class Region extends Model
 
     protected $guarded = [];
 
-    public function coordinator(): BelongsTo {
-        return $this->belongsTo(User::class, 'coordinator_id', 'id');
+    public function moderator(): BelongsTo {
+        return $this->belongsTo(User::class, 'moderator_id', 'id');
     }
 
     public function members() : HasMany {
@@ -30,9 +30,9 @@ class Region extends Model
             TextInput::make('region')
                 ->required()
                 ->maxLength(255),
-            Select::make('coordinator_id')
-                ->relationship('coordinator', 'name')
-                ->options(Role::find(Role::COORDINATOR)->users()->pluck('name','id'))
+            Select::make('moderator_id')
+                ->relationship('moderator', 'name')
+                ->options(Role::find(Role::MODERATOR)->users()->pluck('name','id'))
                 ->searchable()
                 ->preload()
                 ->required(),

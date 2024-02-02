@@ -33,9 +33,9 @@ class RegionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('coordinator.name')
+                Tables\Columns\TextColumn::make('moderator.name')
                     ->numeric()
-                    ->description(fn (Region $record): string => $record->coordinator->email)
+                    ->description(fn (Region $record): string => $record->moderator->email)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('region')
                     ->searchable(),
