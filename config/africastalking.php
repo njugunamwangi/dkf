@@ -6,7 +6,7 @@ return [
     'username' => env('AT_USERNAME', 'sandbox'),
     'api-key' => env('AT_KEY'),
     'sms' => [
-        'from' => env('AT_KEY'),
+        'from' => env('AT_FROM'),
     ],
     'payment' => [
         'product-name' => env('AFRICASTALKING_PAYMENT_PRODUCT'),
