@@ -31,13 +31,16 @@ class MemberResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('phone_number')
                     ->tel()
+                    ->unique(ignoreRecord: true)
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('id_number')
                     ->required()
+                    ->unique(ignoreRecord: true)
                     ->maxLength(255),
                 Forms\Components\TextInput::make('entry_number')
                     ->required()
+                    ->unique(ignoreRecord: true)
                     ->maxLength(255),
                 Forms\Components\Select::make('region_id')
                     ->relationship('region', 'region')
