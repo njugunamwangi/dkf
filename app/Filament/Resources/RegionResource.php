@@ -23,16 +23,7 @@ class RegionResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('region')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('coordinator_id')
-                    ->relationship('coordinator', 'name')
-                    ->options(Role::find(Role::COORDINATOR)->users()->pluck('name','id'))
-                    ->searchable()
-                    ->required(),
-            ]);
+            ->schema(Region::getForm());
     }
 
     public static function table(Table $table): Table

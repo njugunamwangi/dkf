@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\MemberResource\Pages;
 use App\Filament\Resources\MemberResource\RelationManagers;
 use App\Models\Member;
+use App\Models\Region;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -40,6 +41,8 @@ class MemberResource extends Resource
                     ->relationship('region', 'region')
                     ->searchable()
                     ->preload()
+                    ->createOptionForm(Region::getForm())
+                    ->editOptionForm(Region::getForm())
                     ->required(),
             ]);
     }
@@ -48,9 +51,6 @@ class MemberResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('region.id')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone_number')
@@ -59,6 +59,7 @@ class MemberResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('entry_number')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('region.region'),
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
