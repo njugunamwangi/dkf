@@ -6,6 +6,7 @@ use App\Filament\Resources\RegionResource\Pages;
 use App\Filament\Resources\RegionResource\RelationManagers;
 use App\Models\Region;
 use App\Models\Role;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -34,6 +35,7 @@ class RegionResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('coordinator.name')
                     ->numeric()
+                    ->description(fn (Region $record): string => $record->coordinator->email)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('region')
                     ->searchable(),
