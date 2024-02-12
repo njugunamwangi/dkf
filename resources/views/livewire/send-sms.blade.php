@@ -14,4 +14,9 @@
         class="mt-6 w-full rounded-md border border-transparent bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500">
         Send SMS
     </button>
+    <div wire:loading class="mt-4 " >
+        <p class="items-center text-emerald-500">
+            Sending...
+        </p>
+    </div>
 </div>
