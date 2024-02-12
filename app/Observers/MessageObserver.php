@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Filament\Resources\MessageResource;
 use App\Models\Message;
 use App\Models\Role;
 use App\Models\User;
@@ -23,6 +24,11 @@ class MessageObserver
                 ->success()
                 ->icon('heroicon-o-chat-bubble-left-right')
                 ->body('New message sent')
+                ->actions([
+                    Action::make('View')
+                        ->url(MessageResource::getUrl('view', ['record' => $message->id]))
+                        ->markAsRead(),
+                ])
                 ->sendToDatabase($recipient);
         }
     }
