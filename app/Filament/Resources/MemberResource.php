@@ -6,6 +6,8 @@ use App\Filament\Resources\MemberResource\Pages;
 use App\Filament\Resources\MemberResource\RelationManagers;
 use App\Models\Member;
 use App\Models\Region;
+use Cheesegrits\FilamentPhoneNumbers\Columns\PhoneNumberColumn;
+use Cheesegrits\FilamentPhoneNumbers\Forms\Components\PhoneNumber;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -29,11 +31,11 @@ class MemberResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('phone_number')
-                    ->tel()
+                PhoneNumber::make('phone_number')
+                    ->strict()
+                    ->mask('+999 999-999-999')
                     ->unique(ignoreRecord: true)
-                    ->required()
-                    ->maxLength(255),
+                    ->required(),
                 Forms\Components\TextInput::make('id_number')
                     ->required()
                     ->unique(ignoreRecord: true)
@@ -58,13 +60,14 @@ class MemberResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('phone_number')
-                    ->searchable(),
+                PhoneNumberColumn::make('phone_number')
+                    ->dial(),
                 Tables\Columns\TextColumn::make('id_number')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('entry_number')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('region.region'),
+                Tables\Columns\TextColumn::make('region.region')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
