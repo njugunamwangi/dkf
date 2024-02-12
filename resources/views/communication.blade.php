@@ -10,7 +10,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-8">
 
-                    <livewire:send-sms :recipients="$members" />
+                    <livewire:send-sms :recipients="$members" :region="$region" />
 
                 </div>
             </div>

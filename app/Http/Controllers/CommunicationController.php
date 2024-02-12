@@ -16,6 +16,6 @@ class CommunicationController extends Controller
             ->where('region_id', '=', $region->id)
             ->get();
 
-        return view('communication', compact('members'));
+        return view('communication', compact('members', 'region'));
     }
 }
