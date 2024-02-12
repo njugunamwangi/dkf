@@ -25,6 +25,10 @@ class Region extends Model
         return $this->hasMany(User::class);
     }
 
+    public function messages() : HasMany {
+        return $this->hasMany(Message::class);
+    }
+
     public static function getForm() : array {
         return [
             TextInput::make('region')
