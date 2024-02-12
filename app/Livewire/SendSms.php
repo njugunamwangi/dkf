@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Illuminate\Http\Request;
 use Livewire\Component;
+use Masmerise\Toaster\Toaster;
 use SamuelMwangiW\Africastalking\Facades\Africastalking;
 
 class SendSms extends Component
@@ -15,7 +16,7 @@ class SendSms extends Component
     }
 
     public function sendSMS() {
-        $responses = [];
+        $responses = 0;
 
         foreach ($this->recipients as $recipient) {
             $response = Africastalking::sms()
@@ -24,6 +25,14 @@ class SendSms extends Component
                 ->bulk()
                 ->enqueue()
                 ->send();
+
+            if($response->recipients[0]->status->name == 'SUCCESS') {
+                $responses++;
+            }
+        }
+
+        if($responses == count($this->recipients)) {
+            Toaster::success('Messages sent successfully');
         }
 
     }
