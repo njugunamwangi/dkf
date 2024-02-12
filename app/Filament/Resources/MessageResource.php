@@ -7,6 +7,10 @@ use App\Filament\Resources\MessageResource\RelationManagers;
 use App\Models\Message;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Fieldset;
+use Filament\Infolists\Components\KeyValueEntry;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -75,6 +79,26 @@ class MessageResource extends Resource
                 ]),
             ]);
     }
+
+    public static function infolist(Infolist $infolist): Infolist
+{
+    return $infolist
+        ->schema([
+            TextEntry::make('region.region')
+                ->label('Region'),
+            TextEntry::make('user.name')
+                ->label('Sender'),
+            Fieldset::make('Message')
+                ->schema([
+                    TextEntry::make('message')
+                    ->label('Body'),
+                ]),
+            Fieldset::make('Recipients')
+                ->schema([
+
+                ]),
+        ]);
+}
 
     public static function getRelations(): array
     {
