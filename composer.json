@@ -19,7 +19,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
-        "masmerise/livewire-toaster": "^2.1",
+        "masmerise/livewire-toaster": "2.0.3",
         "samuelmwangiw/africastalking-laravel": "^1.4"
     },
     "require-dev": {

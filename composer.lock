@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "66725f33f188fec6443ed2d078d97abd",
+    "content-hash": "04cbcafbcde865d67c0a1f0992b0fa04",
     "packages": [
         {
             "name": "africastalking/africastalking",
@@ -4122,22 +4122,22 @@
         },
         {
             "name": "masmerise/livewire-toaster",
-            "version": "2.1.0",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/masmerise/livewire-toaster.git",
-                "reference": "35104bbb930d2638335e3685a307fb0ec348f5e5"
+                "reference": "89aa127df5d17b915b0818761bdf83e8915036c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/masmerise/livewire-toaster/zipball/35104bbb930d2638335e3685a307fb0ec348f5e5",
-                "reference": "35104bbb930d2638335e3685a307fb0ec348f5e5",
+                "url": "https://api.github.com/repos/masmerise/livewire-toaster/zipball/89aa127df5d17b915b0818761bdf83e8915036c2",
+                "reference": "89aa127df5d17b915b0818761bdf83e8915036c2",
                 "shasum": ""
             },
             "require": {
                 "laravel/framework": "^10.0",
                 "livewire/livewire": "^3.0",
-                "php": "~8.3"
+                "php": "~8.2"
             },
             "conflict": {
                 "stevebauman/unfinalize": "*"
@@ -4187,9 +4187,9 @@
             ],
             "support": {
                 "issues": "https://github.com/masmerise/livewire-toaster/issues",
-                "source": "https://github.com/masmerise/livewire-toaster/tree/2.1.0"
+                "source": "https://github.com/masmerise/livewire-toaster/tree/2.0.3"
             },
-            "time": "2023-12-13T12:33:45+00:00"
+            "time": "2023-09-28T12:07:49+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -11480,5 +11480,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
