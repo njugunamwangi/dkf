@@ -96,6 +96,10 @@ class MemberResource extends Resource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
+                ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make()
+                        ->color('primary'),
                     Action::make('sendSms')
                         ->icon('heroicon-o-chat-bubble-left-right')
                         ->color('success')
@@ -116,6 +120,7 @@ class MemberResource extends Resource
                                 ->body('An sms was sent to ' . $record->name)
                                 ->send();
                         }),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
