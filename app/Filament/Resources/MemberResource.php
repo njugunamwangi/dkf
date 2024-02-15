@@ -96,8 +96,26 @@ class MemberResource extends Resource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                    Action::make('sendSms')
+                        ->icon('heroicon-o-chat-bubble-left-right')
+                        ->color('success')
+                        ->modalDescription(fn ($record) => 'Draft an sms for ' . $record->name)
+                        ->form([
+                            RichEditor::make('message')
+                                ->required(),
+                        ])
+                        ->action(function (Member $record, $data) {
+                            $message = $data['message'];
+
+                            $record->sendSms($message);
+                        })
+                        ->after(function($record) {
+                            Notification::make()
+                                ->success()
+                                ->title('Success')
+                                ->body('An sms was sent to ' . $record->name)
+                                ->send();
+                        }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
