@@ -64,6 +64,7 @@ class RegionResource extends Resource
                 Action::make('sendSms')
                         ->icon('heroicon-o-chat-bubble-left-right')
                         ->color('success')
+                        ->label('Send SMS')
                         ->modalDescription(fn ($record) => 'Draft an sms for ' . $record->region . ' members')
                         ->form([
                             RichEditor::make('message')

@@ -65,6 +65,7 @@ class ProjectResource extends Resource
                 Action::make('sendSms')
                         ->icon('heroicon-o-chat-bubble-left-right')
                         ->color('success')
+                        ->label('Send SMS')
                         ->modalDescription(fn ($record) => 'Draft an sms for ' . $record->project . ' members')
                         ->form([
                             RichEditor::make('message')
