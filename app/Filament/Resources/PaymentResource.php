@@ -28,9 +28,9 @@ class PaymentResource extends Resource
             ->schema([
                 Forms\Components\Select::make('member_id')
                     ->relationship('member', 'name')
-                    ->searchable()
+                    ->searchable(['name', 'id_number'])
                     ->preload()
-                    ->getSearchResultsUsing(fn (string $search): array => Member::where('name', 'like', "%{$search}%")->limit(50)->pluck('name', 'id')->toArray())
+                    ->getSearchResultsUsing(fn (string $search): array => Member::where('name', 'like', "%{$search}%")->orWhere('id_number', 'like', "%{$search}%")->limit(50)->pluck('name', 'id')->toArray())
                     ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->name} - {$record->id_number}")
                     ->live()
                     ->required(),

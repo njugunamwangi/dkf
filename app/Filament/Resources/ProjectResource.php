@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProjectResource\Pages;
 use App\Filament\Resources\ProjectResource\RelationManagers;
+use App\Models\Member;
 use App\Models\Project;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -11,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProjectResource extends Resource
@@ -28,8 +30,10 @@ class ProjectResource extends Resource
                     ->maxLength(255),
                 Forms\Components\Select::make('member_id')
                     ->relationship('members', 'name')
-                    ->searchable()
+                    ->searchable(['name', 'id_number'])
                     ->preload()
+                    ->getSearchResultsUsing(fn (string $search): array => Member::where('name', 'like', "%{$search}%")->orWhere('id_number', 'like', "%{$search}%")->limit(50)->pluck('name', 'id')->toArray())
+                    ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->name} - {$record->id_number}")
                     ->multiple(),
             ]);
     }
