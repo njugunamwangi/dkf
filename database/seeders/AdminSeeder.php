@@ -14,6 +14,8 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(RoleSeeder::class);
+
         $user = User::create([
             'name' => 'Admin',
             'email' => 'admin@ndachi.dev',
