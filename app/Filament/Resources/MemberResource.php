@@ -59,6 +59,11 @@ class MemberResource extends Resource
                     ->preload()
                     ->createOptionForm(Region::getForm())
                     ->editOptionForm(Region::getForm()),
+                Forms\Components\Select::make('project_id')
+                    ->relationship('projects', 'project')
+                    ->searchable()
+                    ->preload()
+                    ->multiple(),
             ]);
     }
 
@@ -85,6 +90,9 @@ class MemberResource extends Resource
                 Tables\Columns\TextColumn::make('entry_number')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('region.region')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('projects.project')
+                    ->label('Projects')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()

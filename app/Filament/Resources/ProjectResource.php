@@ -26,6 +26,11 @@ class ProjectResource extends Resource
                 Forms\Components\TextInput::make('project')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Select::make('member_id')
+                    ->relationship('members', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->multiple(),
             ]);
     }
 
