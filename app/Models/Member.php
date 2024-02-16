@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use SamuelMwangiW\Africastalking\Facades\Africastalking;
@@ -24,6 +25,10 @@ class Member extends Model
 
     public function projects(): BelongsToMany {
         return $this->belongsToMany(Project::class);
+    }
+
+    public function payments(): HasMany {
+        return $this->hasMany(Payment::class);
     }
 
     public function routeNotificationForAfricasTalking($notification)
