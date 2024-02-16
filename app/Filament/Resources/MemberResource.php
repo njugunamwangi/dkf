@@ -11,14 +11,21 @@ use App\Models\Region;
 use Cheesegrits\FilamentPhoneNumbers\Columns\PhoneNumberColumn;
 use Cheesegrits\FilamentPhoneNumbers\Forms\Components\PhoneNumber;
 use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Actions\ExportBulkAction;
 use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class MemberResource extends Resource
@@ -127,6 +134,26 @@ class MemberResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
+                    BulkAction::make('sendSms')
+                        ->icon('heroicon-o-chat-bubble-left-right')
+                        ->color('success')
+                        ->form([
+                            RichEditor::make('message')
+                                ->required(),
+                        ])
+                        ->action(function (Collection $records, $data) {
+                            $message = $data['message'];
+
+                            $records->each->sendSms($message);
+                        })
+                        ->after(function(Collection $records) {
+                            Notification::make()
+                                ->success()
+                                ->title('Success')
+                                ->body('An sms was sent to ' . $records->count() . ' members')
+                                ->send();
+                        }),
+
                 ]),
             ]);
     }
