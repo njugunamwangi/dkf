@@ -22,7 +22,7 @@ class Region extends Model
     }
 
     public function members() : HasMany {
-        return $this->hasMany(User::class);
+        return $this->hasMany(Member::class);
     }
 
     public function messages() : HasMany {
