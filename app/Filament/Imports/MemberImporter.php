@@ -15,21 +15,16 @@ class MemberImporter extends Importer
     {
         return [
             ImportColumn::make('region')
-                ->requiredMapping()
-                ->relationship()
-                ->rules(['required']),
+                ->relationship(),
             ImportColumn::make('name')
                 ->requiredMapping()
                 ->rules(['required', 'max:255']),
             ImportColumn::make('phone_number')
-                ->requiredMapping()
-                ->rules(['required', 'max:255']),
+                ->rules(['max:255']),
             ImportColumn::make('id_number')
-                ->requiredMapping()
-                ->rules(['required', 'max:255']),
+                ->rules(['max:255']),
             ImportColumn::make('entry_number')
-                ->requiredMapping()
-                ->rules(['required', 'max:255']),
+                ->rules(['max:255']),
         ];
     }
 

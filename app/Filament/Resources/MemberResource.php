@@ -46,14 +46,11 @@ class MemberResource extends Resource
                 PhoneNumber::make('phone_number')
                     ->strict()
                     ->mask('+999 999-999-999')
-                    ->unique(ignoreRecord: true)
-                    ->required(),
+                    ->unique(ignoreRecord: true),
                 Forms\Components\TextInput::make('id_number')
-                    ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(255),
                 Forms\Components\TextInput::make('entry_number')
-                    ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(255),
                 Forms\Components\Select::make('region_id')
@@ -61,8 +58,7 @@ class MemberResource extends Resource
                     ->searchable()
                     ->preload()
                     ->createOptionForm(Region::getForm())
-                    ->editOptionForm(Region::getForm())
-                    ->required(),
+                    ->editOptionForm(Region::getForm()),
             ]);
     }
 
@@ -71,9 +67,11 @@ class MemberResource extends Resource
         return $table
             ->headerActions([
                 ImportAction::make()
-                    ->importer(MemberImporter::class),
+                    ->importer(MemberImporter::class)
+                    ->icon('heroicon-o-arrow-down-tray'),
                 ExportAction::make()
-                    ->exporter(MemberExporter::class),
+                    ->exporter(MemberExporter::class)
+                    ->icon('heroicon-o-arrow-up-tray'),
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('name')
