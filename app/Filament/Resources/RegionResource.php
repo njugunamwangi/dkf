@@ -33,12 +33,12 @@ class RegionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('moderator.name')
-                    ->numeric()
-                    ->description(fn (Region $record): string => $record->moderator->email)
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('region')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('moderator.name')
+                    ->description(fn (Region $record): string => ($record->moderator == NULL) ? '' : $record->moderator->email)
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

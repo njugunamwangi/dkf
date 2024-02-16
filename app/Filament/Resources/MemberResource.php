@@ -77,7 +77,9 @@ class MemberResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 PhoneNumberColumn::make('phone_number')
-                    ->dial(),
+                    ->dial()
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('id_number')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('entry_number')
