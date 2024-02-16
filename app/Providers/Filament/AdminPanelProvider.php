@@ -65,6 +65,9 @@ class AdminPanelProvider extends PanelProvider
             ->databaseNotificationsPolling('5s')
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->resources([
+                config('filament-logger.activity_resource')
             ]);
     }
 
