@@ -38,8 +38,7 @@ class Region extends Model
                 ->relationship('moderator', 'name')
                 ->options(Role::find(Role::MODERATOR)->users()->pluck('name','id'))
                 ->searchable()
-                ->preload()
-                ->required(),
+                ->preload(),
         ];
     }
 }

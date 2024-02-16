@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('regions', function (Blueprint $table) {
             $table->id();
             $table->string('region')->unique();
-            $table->foreignId('moderator_id')->references('id')->on('users')->nullable()->constrained();
+            $table->foreignId('moderator_id')->nullable()->references('id')->on('users')->nullable()->constrained();
             $table->timestamps();
         });
     }
