@@ -15,10 +15,10 @@ return new class extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('phone_number')->unique();
-            $table->string('id_number')->unique();
-            $table->foreignIdFor(Region::class)->constrained();
-            $table->string('entry_number')->unique();
+            $table->string('phone_number')->nullable()->unique();
+            $table->string('id_number')->nullable()->unique();
+            $table->foreignIdFor(Region::class)->nullable()->constrained();
+            $table->string('entry_number')->nullable()->unique();
             $table->softDeletes();
             $table->timestamps();
         });
