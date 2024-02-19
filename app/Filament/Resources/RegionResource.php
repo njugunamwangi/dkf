@@ -14,6 +14,8 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -46,6 +48,9 @@ class RegionResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('members')
+                    ->getStateUsing(fn ($record) => $record->members->count())
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
@@ -59,29 +64,33 @@ class RegionResource extends Resource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Action::make('sendSms')
-                        ->icon('heroicon-o-chat-bubble-left-right')
-                        ->color('success')
-                        ->label('Send SMS')
-                        ->modalDescription(fn ($record) => 'Draft an sms for ' . $record->region . ' members')
-                        ->form([
-                            RichEditor::make('message')
-                                ->required(),
-                        ])
-                        ->action(function (Region $record, $data) {
-                            $message = $data['message'];
+                ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Action::make('sendSms')
+                            ->icon('heroicon-o-chat-bubble-left-right')
+                            ->color('success')
+                            ->label('Send SMS')
+                            ->modalIcon('heroicon-o-chat-bubble-left-right')
+                            ->modalSubmitActionLabel('Send SMS')
+                            ->modalDescription(fn ($record) => 'Draft an sms for ' . $record->region . ' members')
+                            ->form([
+                                RichEditor::make('message')
+                                    ->required(),
+                            ])
+                            ->action(function (Region $record, $data) {
+                                $message = $data['message'];
 
-                            $record->members->each->sendSms($message);
-                        })
-                        ->after(function($record) {
-                            Notification::make()
-                                ->success()
-                                ->title('Success')
-                                ->body('An sms was sent to ' . $record->members->count() . ' members')
-                                ->send();
-                        }),
+                                $record->members->each->sendSms($message);
+                            })
+                            ->after(function($record) {
+                                Notification::make()
+                                    ->success()
+                                    ->title('Success')
+                                    ->body('An sms was sent to ' . $record->members->count() . ' members')
+                                    ->send();
+                            }),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -24,6 +24,7 @@ use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Actions\ExportBulkAction;
 use Filament\Tables\Actions\ImportAction;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -46,6 +47,7 @@ class MemberResource extends Resource
                     ->maxLength(255),
                 PhoneNumber::make('phone')
                     ->strict()
+                    ->tel()
                     ->mask('+999 999-999-999')
                     ->unique(ignoreRecord: true),
                 Forms\Components\TextInput::make('id_number')
@@ -83,6 +85,7 @@ class MemberResource extends Resource
                     ->searchable(),
                 PhoneNumberColumn::make('phone')
                     ->dial()
+                    ->copyable()
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('id_number')
@@ -107,6 +110,10 @@ class MemberResource extends Resource
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
+                SelectFilter::make('region')
+                    ->relationship('region', 'region')
+                    ->searchable()
+                    ->preload()
             ])
             ->actions([
                 ActionGroup::make([
