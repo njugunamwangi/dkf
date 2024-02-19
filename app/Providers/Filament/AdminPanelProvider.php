@@ -21,6 +21,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Njxqlus\FilamentProgressbar\FilamentProgressbarPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -59,7 +60,8 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->plugins([
-                FilamentSpatieRolesPermissionsPlugin::make()
+                FilamentSpatieRolesPermissionsPlugin::make(),
+                FilamentProgressbarPlugin::make()->color('#29b')
             ])
             ->databaseNotifications()
             ->databaseNotificationsPolling('5s')
