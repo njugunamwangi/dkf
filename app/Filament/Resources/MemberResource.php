@@ -120,10 +120,13 @@ class MemberResource extends Resource
                         ->icon('heroicon-o-chat-bubble-left-right')
                         ->color('success')
                         ->modalDescription(fn ($record) => 'Draft an sms for ' . $record->name)
+                        ->modalIcon('heroicon-o-chat-bubble-left-right')
                         ->form([
                             RichEditor::make('message')
+                                ->label('SMS')
                                 ->required(),
                         ])
+                        ->modalSubmitActionLabel('Send SMS')
                         ->action(function (Member $record, $data) {
                             $message = $data['message'];
 
@@ -146,8 +149,12 @@ class MemberResource extends Resource
                     BulkAction::make('sendSms')
                         ->icon('heroicon-o-chat-bubble-left-right')
                         ->color('success')
+                        ->modalIcon('heroicon-o-chat-bubble-left-right')
+                        ->modalSubmitActionLabel('Send SMS')
+                        ->modalDescription(fn (Collection $records) => 'Send an sms to '. $records->count() . ' members')
                         ->form([
                             RichEditor::make('message')
+                                ->label('SMS')
                                 ->required(),
                         ])
                         ->action(function (Collection $records, $data) {

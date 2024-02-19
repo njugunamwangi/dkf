@@ -45,8 +45,8 @@ class AdminPanelProvider extends PanelProvider
 
             ])
             ->navigationGroups([
-                NavigationGroup::make('Staff')->icon('heroicon-o-users'),
-                NavigationGroup::make('Members Management')->icon('heroicon-o-user-group'),
+                NavigationGroup::make('Staff')->icon('heroicon-o-users')->collapsed(),
+                NavigationGroup::make('Members Management')->icon('heroicon-o-user-group')->collapsed(),
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -63,6 +63,7 @@ class AdminPanelProvider extends PanelProvider
                 FilamentSpatieRolesPermissionsPlugin::make(),
                 FilamentProgressbarPlugin::make()->color('#29b')
             ])
+            ->collapsibleNavigationGroups()
             ->databaseNotifications()
             ->databaseNotificationsPolling('5s')
             ->authMiddleware([
