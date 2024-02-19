@@ -33,7 +33,7 @@ class Member extends Model
 
     public function routeNotificationForAfricasTalking($notification)
     {
-        return $this->phone_number;
+        return $this->phone;
     }
 
     public function sendSms($message) {
@@ -42,7 +42,7 @@ class Member extends Model
 
         Africastalking::sms()
             ->message($message)
-            ->to($this->phone_number)
+            ->to($this->phone)
             ->bulk()
             ->enqueue()
             ->send();

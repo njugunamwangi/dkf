@@ -15,10 +15,9 @@ return new class extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('phone_number')->nullable()->unique();
+            $table->string('phone')->nullable()->unique();
             $table->string('id_number')->nullable()->unique();
-            $table->foreignIdFor(Region::class)->nullable()->constrained();
-            $table->string('entry_number')->nullable()->unique();
+            $table->foreignIdFor(Region::class)->nullable()->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

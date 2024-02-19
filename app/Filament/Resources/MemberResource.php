@@ -44,14 +44,11 @@ class MemberResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                PhoneNumber::make('phone_number')
+                PhoneNumber::make('phone')
                     ->strict()
                     ->mask('+999 999-999-999')
                     ->unique(ignoreRecord: true),
                 Forms\Components\TextInput::make('id_number')
-                    ->unique(ignoreRecord: true)
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('entry_number')
                     ->unique(ignoreRecord: true)
                     ->maxLength(255),
                 Forms\Components\Select::make('region_id')
@@ -71,6 +68,8 @@ class MemberResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->paginated([100, 250, 500, 1000, 2000, 5000, 'all'])
+            ->defaultPaginationPageOption(100)
             ->headerActions([
                 ImportAction::make()
                     ->importer(MemberImporter::class)
@@ -82,13 +81,11 @@ class MemberResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                PhoneNumberColumn::make('phone_number')
+                PhoneNumberColumn::make('phone')
                     ->dial()
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('id_number')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('entry_number')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('region.region')
                     ->searchable(),

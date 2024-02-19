@@ -19,11 +19,9 @@ class MemberImporter extends Importer
             ImportColumn::make('name')
                 ->requiredMapping()
                 ->rules(['required', 'max:255']),
-            ImportColumn::make('phone_number')
+            ImportColumn::make('phone')
                 ->rules(['max:255']),
             ImportColumn::make('id_number')
-                ->rules(['max:255']),
-            ImportColumn::make('entry_number')
                 ->rules(['max:255']),
         ];
     }
