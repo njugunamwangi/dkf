@@ -20,7 +20,7 @@ class MessageObserver
 
         foreach ($recipients as $recipient) {
             Notification::make()
-                ->title($message->user->name . ' sent ' . $message->region->region . ' members an sms' )
+                ->title($message->user->name . ' sent an sms' )
                 ->success()
                 ->icon('heroicon-o-chat-bubble-left-right')
                 ->body('New message sent')

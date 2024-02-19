@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->longText('message');
             $table->json('recipients');
-            $table->foreignIdFor(Region::class)->constrained();
             $table->foreignIdFor(User::class)->constrained();
             $table->timestamps();
         });

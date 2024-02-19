@@ -7,6 +7,7 @@ use App\Filament\Imports\MemberImporter;
 use App\Filament\Resources\MemberResource\Pages;
 use App\Filament\Resources\MemberResource\RelationManagers;
 use App\Models\Member;
+use App\Models\Message;
 use App\Models\Region;
 use Cheesegrits\FilamentPhoneNumbers\Columns\PhoneNumberColumn;
 use Cheesegrits\FilamentPhoneNumbers\Forms\Components\PhoneNumber;
@@ -128,12 +129,12 @@ class MemberResource extends Resource
 
                             $record->sendSms($message);
                         })
-                        ->after(function($record) {
-                            Notification::make()
-                                ->success()
-                                ->title('Success')
-                                ->body('An sms was sent to ' . $record->name)
-                                ->send();
+                        ->after(function(Member $record, $data) {
+                            Message::create([
+                                'message' => strip_tags($data['message']),
+                                'recipients' => $record,
+                                'user_id' => auth()->user()->id,
+                            ]);
                         }),
                 ])
             ])
@@ -154,12 +155,12 @@ class MemberResource extends Resource
 
                             $records->each->sendSms($message);
                         })
-                        ->after(function(Collection $records) {
-                            Notification::make()
-                                ->success()
-                                ->title('Success')
-                                ->body('An sms was sent to ' . $records->count() . ' members')
-                                ->send();
+                        ->after(function(Collection $records, $data) {
+                            Message::create([
+                                'message' => strip_tags($data['message']),
+                                'recipients' => $records,
+                                'user_id' => auth()->user()->id,
+                            ]);
                         }),
 
                 ]),
