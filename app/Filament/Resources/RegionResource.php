@@ -11,6 +11,8 @@ use Filament\Forms;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
+use Filament\Pages\SubNavigationPosition;
+use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
@@ -28,10 +30,17 @@ class RegionResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::End;
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema(Region::getForm());
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 
     public static function table(Table $table): Table
@@ -49,8 +58,7 @@ class RegionResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('members')
-                    ->getStateUsing(fn ($record) => $record->members->count())
-                    ->sortable(),
+                    ->getStateUsing(fn ($record) => $record->members->count()),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
@@ -124,5 +132,13 @@ class RegionResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+
+    public static function getRecordSubNavigation(Page $page): array
+    {
+        return $page->generateNavigationItems([
+            Pages\ViewRegion::class,
+            Pages\EditRegion::class,
+        ]);
     }
 }

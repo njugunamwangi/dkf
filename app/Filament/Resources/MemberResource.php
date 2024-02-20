@@ -16,6 +16,8 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
+use Filament\Pages\SubNavigationPosition;
+use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
@@ -37,6 +39,13 @@ class MemberResource extends Resource
     protected static ?string $navigationGroup = 'Members Management';
 
     protected static ?int $navigationSort = 2;
+
+    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::End;
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
@@ -201,5 +210,13 @@ class MemberResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+
+    public static function getRecordSubNavigation(Page $page): array
+    {
+        return $page->generateNavigationItems([
+            Pages\ViewMember::class,
+            Pages\EditMember::class,
+        ]);
     }
 }
